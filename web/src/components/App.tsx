@@ -14,9 +14,9 @@ debugData([
     data: {
       currentFloor: 1,
       floorButtons: [
-        {floor: -1, label: "Underground 1"},
-        {floor: 0, label: "Lobby"},
-        {floor: 1, label: "First Floor"},
+        {floor: "-1", label: "Underground 1"},
+        {floor: "0", label: "Lobby"},
+        {floor: "1", label: "First Floor"},
       ]
     },
   },
@@ -30,24 +30,23 @@ debugData([
 
 const App: React.FC< any > = () => {
 
-  const [currentFloor, setCurrentFloor] = useState<number | string>(0);
-  const [floorButtons, setFloorButtons] = useState<{ floor: number; label: string; }[]>([]);
+  const [currentFloor, setCurrentFloor] = useState<string>("0");
+  const [floorButtons, setFloorButtons] = useState<{ floor: string; label: string; }[]>([]);
 
-  useNuiEvent<{ currentFloor: number; floorButtons: { floor: number; label: string; }[] }>('setFloors', (data) => {
+  useNuiEvent<{ currentFloor: string; floorButtons: { floor: string; label: string; }[] }>('setFloors', (data) => {
     setCurrentFloor(data.currentFloor);
     setFloorButtons(data.floorButtons);
   });
 
-  const handleButtonClick = (clickedFloor: number) => {
-    fetchNui<boolean>("setNewFloor")
+  const handleButtonClick = (clickedFloor: string) => {
+    fetchNui<boolean>("setNewFloor", {clickedFloor: clickedFloor})
       .then((retData) => {
-        setCurrentFloor(retData ? clickedFloor : "ERR");
+        if (retData) setCurrentFloor(clickedFloor);
       })
       .catch((e) => {
         setCurrentFloor("ERR");
       });
   };
-
 
   return (
     <div className="nui-wrapper">

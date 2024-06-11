@@ -2,7 +2,7 @@ import React from "react";
 import "../App.css";
 
 interface FloorButtonProps {
-    floor: number | string;
+    floor: string;
     label: string;
     onClick: () => void; // onClick function prop
 }
