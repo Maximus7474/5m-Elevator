@@ -1,0 +1,87 @@
+.nui-wrapper {
+    text-align: center;
+    height: 100%;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+pre {
+    counter-reset:line-numbering;
+    background:#2c3e50;
+    padding:12px 0px 14px 0;
+    color:#ecf0f1;
+    line-height:140%;
+}
+
+.elevator-panel {
+    background-image: url('/images/background.webp');
+    filter: brightness(80%);
+    background-size: fill;
+    background-position: center;
+    width: 415px;
+    padding: 20px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-left: 1em;
+}
+
+.floor-indicator {
+    text-align: center;
+    font-family: 'Digital-7 Mono', sans-serif;
+    color: #00ff00;
+    background-color: #000;
+    border: 2px solid #00ff00;
+    box-shadow: 0 0 10px #00ff00;
+    font-size: 35px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    padding: 0.25em 1em;
+    display: inline-block;
+}
+
+.button-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.elevator-button {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    padding: 0 1em 0 0;
+    background-color: #0000001f;
+    border: 2px solid #ccc;
+    border-radius: 25px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 1.0);
+    width: 180px;
+    height: 50px;
+}
+
+.elevator-button:hover {
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 1.0);
+}
+
+.button-circle {
+    background-color: #000;
+    color: white;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.button-label {
+    font-size: 16px;
+    max-width: 120px;
+    color:#000;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
