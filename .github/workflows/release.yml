@@ -29,15 +29,7 @@ jobs:
     - name: Prepare release assets
       run: |
         mkdir release_assets
-        mkdir release_assets/client
-        cp -r client/* release_assets/client/
-        mkdir release_assets/web
-        cp -r web/* release_assets/web/
-        mkdir release_assets/server
-        cp -r server/* release_assets/server/
-        cp fxmanifest.lua release_assets/
-        cp config.lua release_assets/
-        cp README.md release_assets/
+        cp -r * release_assets/
     
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
@@ -56,7 +48,7 @@ jobs:
         find . -mindepth 1 -not -path './build' -not -path './build/*' -delete
 
     - name: Compress Asset
-      run: cd release_assets && zip -r ../LGF-Char-Creator.zip .
+      run: cd release_assets && zip -r ../5m-Elevator.zip .
 
     - name: Create GitHub Release
       id: create_release
@@ -78,6 +70,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./LGF-Char-Creator.zip
-        asset_name: LGF-Char-Creator.zip
+        asset_path: ./5m-Elevator.zip
+        asset_name: 5m-Elevator.zip
         asset_content_type: application/zip
