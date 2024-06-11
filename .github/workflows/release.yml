@@ -1,0 +1,83 @@
+name: Create Release on 'bump version' commit
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  create_release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    
+    if: contains(github.event.head_commit.message, 'bump version')
+
+    strategy:
+      matrix:
+        node-version: [ 18.x ]
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Find 'bump version' commit and extract release name
+      id: extract_release_name
+      run: |
+        RELEASE_NAME=$(git log -1 --pretty=%B | grep -oP 'bump version \K(.*)')
+        echo "::set-output name=release_name::$RELEASE_NAME"
+
+    - name: Prepare release assets
+      run: |
+        mkdir release_assets
+        mkdir release_assets/client
+        cp -r client/* release_assets/client/
+        mkdir release_assets/web
+        cp -r web/* release_assets/web/
+        mkdir release_assets/server
+        cp -r server/* release_assets/server/
+        cp fxmanifest.lua release_assets/
+        cp config.lua release_assets/
+        cp README.md release_assets/
+    
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+    
+    - name: Build UI
+      run: |
+        cd release_assets/web/
+        npm install
+        npm run build
+
+    - name: Clean release asset
+      run: |
+        cd release_assets/web/
+        find . -mindepth 1 -not -path './build' -not -path './build/*' -delete
+
+    - name: Compress Asset
+      run: cd release_assets && zip -r ../LGF-Char-Creator.zip .
+
+    - name: Create GitHub Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+      with:
+        tag_name: ${{ steps.extract_release_name.outputs.release_name }}
+        release_name: ${{ steps.extract_release_name.outputs.release_name }}
+        body: |
+          Version Bump to ${{ steps.extract_release_name.outputs.release_name }}.
+        draft: false
+        prerelease: false
+
+    - name: Upload Release Asset
+      id: upload_release_asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./LGF-Char-Creator.zip
+        asset_name: LGF-Char-Creator.zip
+        asset_content_type: application/zip
