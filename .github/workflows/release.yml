@@ -29,7 +29,7 @@ jobs:
     - name: Prepare release assets
       run: |
         mkdir release_assets
-        cp -r * release_assets/
+        rsync -av --exclude='release_assets/' . release_assets/
     
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
