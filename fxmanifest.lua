@@ -14,7 +14,7 @@ games {
 files {
     'client/modules/*.lua',
 	'web/build/index.html',
-	'web/build/**/*',
+	'web/build/**/*'
 }
 
 ui_page 'web/build/index.html'
