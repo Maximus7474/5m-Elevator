@@ -1,22 +1,33 @@
-fx_version "cerulean"
+fx_version 'cerulean'
 
-description "Simple elevator UI"
-author "Maximus Prime"
+description 'Simple elevator UI'
+author 'Maximus Prime'
 version '0.0.1'
 repository 'https://github.com/Maximus7474/5M-Elevator'
 
 lua54 'yes'
 
 games {
-  "gta5"
+    'gta5'
+}
+
+files {
+    'client/modules/*.lua',
+	'web/build/index.html',
+	'web/build/**/*',
 }
 
 ui_page 'web/build/index.html'
 
-client_script "client/**/*"
-server_script "server/**/*"
+shared_scripts {
+    '@ox_lib/init.lua',
+    'shared/*.lua',
+}
 
-files {
-	'web/build/index.html',
-	'web/build/**/*',
+client_script 'client/*.lua'
+server_script 'server/*.lua'
+
+dependancies {
+    'ox_lib',
+    'ox_target'
 }
