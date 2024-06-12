@@ -12,7 +12,7 @@
 ## Requirements:
 - [ox_lib](https://github.com/overextended/ox_lib/releases)
 - [ox_target](https://github.com/overextended/ox_target/releases) or [qb-target](https://github.com/qbcore-framework/qb-target)
-  - If you don't use any of these scripts you can add your own in `client/modules/targets` and add the resource name in `Config.Targets`
+  - If you don't use any of these scripts you can add your own in `client/modules/targets`
 
 ## Configuration:
 All configuration actions are available in the [config.lua file](https://github.com/Maximus7474/5M-Elevator/blob/1.0.1/shared/config.lua).
