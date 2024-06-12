@@ -1,15 +1,16 @@
-if Config.VersionCheck then
-    lib.versionCheck('Maximus7474/5M-Elevator')
-end
-
-local target = false
-for _, script in pairs(Config.Targets) do
-    if IsResourceStarting(script) then
-        target = true
+local targetScripts, _ = lib.getFilesInDirectory(("@%s/client/modules/targets/"):format(GetCurrentResourceName()), "%.lua")
+local target
+for _, script in pairs(targetScripts) do
+    if IsResourceStarting(script:gsub("%.lua$", "")) then
+        target = script:gsub("%.lua$", "")
         break
     end
 end
+if not target then error("No Target Script Defined ! This resource will not work.") end
 
-if not target then
-    error("No Target Script Defined ! This resource will not work.")
+
+lib.callback.register("5m-Elevator:TargetScripts", function () return target end)
+
+if Config.VersionCheck then
+    lib.versionCheck('Maximus7474/5M-Elevator')
 end
