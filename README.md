@@ -7,6 +7,7 @@
 ⚠️ If you are not planning on developping tis script download the latest release.
 
 - For any issues or feature requests please use the [issues tab](https://github.com/Maximus7474/5M-Elevator/issues)
+- [CFX Forum Post](https://forum.cfx.re/t/free-elevator-interface/5241372/1)
 
 ## Requirements:
 - [ox_lib](https://github.com/overextended/ox_lib/releases)
