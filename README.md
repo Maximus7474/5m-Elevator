@@ -1,6 +1,5 @@
 # 5M-Elevator
-
-⚠️ This resource is under development, it is not yet ready for use.
+> By [Maximus7474](https://github.com/Maximus7474)
 
 ⚠️ If you are not planning on developping tis script download the latest  release.
 
