@@ -2,7 +2,7 @@ fx_version 'cerulean'
 
 description 'Simple elevator UI'
 author 'Maximus Prime'
-version '1.0.1'
+version '1.0.2'
 repository 'https://github.com/Maximus7474/5M-Elevator'
  
 lua54 'yes'
@@ -12,7 +12,7 @@ games {
 }
 
 files {
-    'client/modules/*.lua',
+    'client/modules/**/*.lua',
 	'web/build/index.html',
 	'web/build/**/*'
 }

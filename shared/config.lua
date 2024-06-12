@@ -43,3 +43,10 @@ Config.Elevators = {
         }
     }
 }
+
+--[[ 
+    Don't change unless you know what you're doing
+]]
+Config.Targets = {
+    "ox_target", "qb-target"
+}
