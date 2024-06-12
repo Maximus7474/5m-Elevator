@@ -20,7 +20,7 @@ debugData([
       ]
     },
   },
-])
+]);
 debugData([
   {
     action: "setVisible",
