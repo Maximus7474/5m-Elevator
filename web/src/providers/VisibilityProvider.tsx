@@ -16,24 +16,49 @@ interface VisibilityProviderValue {
   visible: boolean;
 }
 
+const fadeStyles = {
+  fadeEnter: {
+    opacity: 0,
+    transition: 'opacity 0.5s ease-in',
+  },
+  fadeEnterActive: {
+    opacity: 1,
+  },
+  fadeExit: {
+    opacity: 1,
+    transition: 'opacity 0.5s ease-in',
+  },
+  fadeExitActive: {
+    opacity: 0,
+  },
+};
+
 // This should be mounted at the top level of your application, it is currently set to
 // apply a CSS visibility value. If this is non-performant, this should be customized.
 export const VisibilityProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [visible, setVisible] = useState(false);
+  const [render, setRender] = useState(false);
 
-  useNuiEvent<boolean>("setVisible", setVisible);
+  useNuiEvent<boolean>("setVisible", (state) => {
+    if (state) {
+      setRender(true);
+      setTimeout(() => setVisible(true), 0);
+    } else {
+      setVisible(false);
+      setTimeout(() => setRender(false), 500); // duration should match the CSS transition
+    }
+  });
 
   // Handle pressing escape/backspace
   useEffect(() => {
-    // Only attach listener when we are visible
     if (!visible) return;
 
     const keyHandler = (e: KeyboardEvent) => {
       if (["Backspace", "Escape"].includes(e.code)) {
         if (!isEnvBrowser()) fetchNui("hideFrame");
-        else setVisible(!visible);
+        else setVisible(false);
       }
     };
 
@@ -42,6 +67,10 @@ export const VisibilityProvider: React.FC<{ children: React.ReactNode }> = ({
     return () => window.removeEventListener("keydown", keyHandler);
   }, [visible]);
 
+  const currentStyle = visible
+    ? { ...fadeStyles.fadeEnter, ...fadeStyles.fadeEnterActive }
+    : { ...fadeStyles.fadeExit, ...fadeStyles.fadeExitActive };
+
   return (
     <VisibilityCtx.Provider
       value={{
@@ -49,14 +78,15 @@ export const VisibilityProvider: React.FC<{ children: React.ReactNode }> = ({
         setVisible,
       }}
     >
-      <div
-        style={{ visibility: visible ? "visible" : "hidden", height: "100%" }}
-      >
-        {children}
-      </div>
+      {render && (
+        <div style={{ ...currentStyle, height: "100%" }}>
+          {children}
+        </div>
+      )}
     </VisibilityCtx.Provider>
   );
 };
+
 
 export const useVisibility = () =>
   useContext<VisibilityProviderValue>(
