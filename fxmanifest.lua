@@ -12,7 +12,7 @@ games {
 }
 
 files {
-    'client/modules/*.lua',
+    'client/modules/**/*.lua',
 	'web/build/index.html',
 	'web/build/**/*'
 }
@@ -28,6 +28,5 @@ client_script 'client/*.lua'
 server_script 'server/*.lua'
 
 dependancies {
-    'ox_lib',
-    'ox_target'
+    'ox_lib'
 }

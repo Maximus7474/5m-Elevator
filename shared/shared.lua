@@ -17,3 +17,8 @@ function DebugPrint(...)
 
     print("[^3DEBUG^7]", table.concat(args, '\t'))
 end
+
+function IsResourceStarting(resource)
+    local state = GetResourceState(resource)
+    return state == "started" or state == "starting"
+end
