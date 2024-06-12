@@ -1,12 +1,6 @@
-local Zones, TARGET = {}, {}
+local Zones = {}
+local TARGET = require ("client.modules.targets."..lib.callback.await("5m-Elevator:TargetScripts", false))
 local resourceName = GetCurrentResourceName()
-
-for _, target in pairs(Config.Targets) do
-    if IsResourceStarting(target) then
-        TARGET = require ("client.modules.targets."..target)
-        break
-    end
-end
 
 for elevator, data in pairs(Config.Elevators) do
     Zones[elevator] = {}
