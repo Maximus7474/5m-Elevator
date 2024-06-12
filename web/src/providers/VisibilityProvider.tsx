@@ -39,15 +39,12 @@ export const VisibilityProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [visible, setVisible] = useState(false);
-  const [render, setRender] = useState(false);
 
   useNuiEvent<boolean>("setVisible", (state) => {
     if (state) {
-      setRender(true);
       setTimeout(() => setVisible(true), 0);
     } else {
       setVisible(false);
-      setTimeout(() => setRender(false), 500); // duration should match the CSS transition
     }
   });
 
@@ -78,11 +75,9 @@ export const VisibilityProvider: React.FC<{ children: React.ReactNode }> = ({
         setVisible,
       }}
     >
-      {render && (
-        <div style={{ ...currentStyle, height: "100%" }}>
-          {children}
-        </div>
-      )}
+      <div style={{ ...currentStyle, height: "100%" }}>
+        {children}
+      </div>
     </VisibilityCtx.Provider>
   );
 };
