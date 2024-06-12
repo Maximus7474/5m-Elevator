@@ -2,7 +2,7 @@ fx_version 'cerulean'
 
 description 'Simple elevator UI'
 author 'Maximus Prime'
-version '1.0.2'
+version '1.0.3'
 repository 'https://github.com/Maximus7474/5M-Elevator'
 
 lua54 'yes'
@@ -13,8 +13,8 @@ games {
 
 files {
     'client/modules/**/*.lua',
-	'web/build/index.html',
-	'web/build/**/*'
+    'web/build/index.html',
+    'web/build/**/*'
 }
 
 ui_page 'web/build/index.html'
@@ -27,6 +27,4 @@ shared_scripts {
 client_script 'client/*.lua'
 server_script 'server/*.lua'
 
-dependancies {
-    'ox_lib'
-}
+dependancy 'ox_lib'
