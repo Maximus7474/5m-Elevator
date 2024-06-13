@@ -2,16 +2,33 @@ Config = {}
 
 --[[ Set Debug Mode ]]
 Config.Debug = true
-Config.DebugZones = false
+Config.DebugZones = true
 
 --[[ Set to false if you do not want to be notified on updates ]]
 Config.VersionCheck = true
 
 Config.Options = {
+    --[[ Use a Target Script ]]
+    Target = false,
+    --[[ Distance to Open Panel ]]
+    Distance = 2.0,
 
-    --[[ Set the target Icon & Label ]]
+    --[[ Only if Target is false ]]
+    DrawMarker = true,
+    --[[ Marker list: https://docs.fivem.net/docs/game-references/markers/ ]]
+    Marker = {
+        marker = 2,
+        color = { r = 255, g = 255, b = 255, a = 150 },
+        size = { x = 0.75, y = 0.75, z = 0.75 }
+    },
+
+    --[[ Set the target Icon & Label - Not used if Target = false ]]
     Icon = "fa-solid fa-arrows-up-down",
     Label = "Elevator",
+
+    --[[ Set the Text UI & Key to use ]]
+    TextUI = "Press [%s] to open elevator panel",
+    Key = { id = 38, name = "E" },
 
     --[[ if false teleports immediatly ]]
     ScreenFade = true,
