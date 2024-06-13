@@ -10,7 +10,7 @@ if Config.Options.DrawMarker then
     inside = function (self)
         local coords = GetEntityCoords(cache.ped or PlayerPedId())
         if #(self.coords - coords) < Config.Options.Distance then
-            if not lib.isTextUIOpen() then
+            if not lib.isTextUIOpen() and not State.UIOpen then
                 lib.showTextUI(textUI)
             end
             if IsControlJustPressed(keyID, keyID) then

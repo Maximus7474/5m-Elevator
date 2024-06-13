@@ -4,6 +4,7 @@ local TP = require 'client.modules.teleport'
 
 local resourceName = GetCurrentResourceName()
 local currentElevator, isMoving = nil, false
+State = {}
 
 AddEventHandler(("%s:openElevator"):format(resourceName), function (data)
     local data = data.data
@@ -13,15 +14,18 @@ AddEventHandler(("%s:openElevator"):format(resourceName), function (data)
         currentFloor = data.floor,
         floorButtons = Utils.FormatFloors(Config.Elevators?[data.elevator]?.floors)
     })
+    State.UIOpen = true
     NUI.ToggleNui(true)
 end)
 
 RegisterCommand('show-nui', function()
     NUI.ToggleNui(true)
+    State.UIOpen = true
     DebugPrint('Show NUI frame')
 end)
 
 RegisterNUICallback('hideFrame', function(_, cb)
+    State.UIOpen = false
     NUI.ToggleNui(false)
     currentElevator = nil
     DebugPrint('Hide NUI frame')
