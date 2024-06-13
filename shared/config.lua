@@ -1,15 +1,15 @@
 Config = {}
 
 --[[ Set Debug Mode ]]
-Config.Debug = true
-Config.DebugZones = true
+Config.Debug = false
+Config.DebugZones = false
 
 --[[ Set to false if you do not want to be notified on updates ]]
 Config.VersionCheck = true
 
 Config.Options = {
     --[[ Use a Target Script ]]
-    Target = false,
+    Target = true,
     --[[ Distance to Open Panel ]]
     Distance = 2.0,
 
