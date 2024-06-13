@@ -1,5 +1,5 @@
 local Zones = {}
-local TARGET = require ("client.modules.targets."..lib.callback.await("5m-Elevator:TargetScripts", false))
+local TARGET = require ("client.modules."..lib.callback.await("5m-Elevator:ZoneHandler", false))
 local resourceName = GetCurrentResourceName()
 
 for elevator, data in pairs(Config.Elevators) do
