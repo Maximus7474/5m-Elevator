@@ -9,7 +9,7 @@
 - For any issues or feature requests please use the [issues tab](https://github.com/Maximus7474/5M-Elevator/issues)
 - [CFX Forum Post](https://forum.cfx.re/t/free-elevator-interface/5241372/1)
 
-> Preview:
+Preview:
 ![image](https://github.com/Maximus7474/5M-Elevator/assets/94017712/75fcdbda-4ba5-4935-862a-b84d222f5497)
 
 ## Requirements:
