@@ -3,6 +3,8 @@ local resourceName = GetCurrentResourceName()
 local textUI, keyID = Config.Options.TextUI:format(Config.Options.Key.name), Config.Options.Key.id
 local onEnter, inside, onExit
 
+local GetEntityCoords, DrawMarker, IsControlJustPressed = GetEntityCoords, DrawMarker, IsControlJustPressed
+
 if Config.Options.DrawMarker then
     onEnter = function()
         DebugPrint("txt ui", textUI, keyID)
