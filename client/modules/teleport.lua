@@ -1,5 +1,8 @@
 local TP = {}
 
+local DoScreenFadeOut, DoScreenFadeIn, IsScreenFadedOut, IsScreenFadedIn = DoScreenFadeOut, DoScreenFadeIn, IsScreenFadedOut, IsScreenFadedIn
+local SetEntityCoords, SetEntityHeading = SetEntityCoords, SetEntityHeading
+
 ---GoTo new floor (duh)
 ---@param elevator string|nil
 ---@param newfloor string

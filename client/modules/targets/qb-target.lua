@@ -5,7 +5,7 @@ return {
         local name = ("%s_%s_%s"):format(resourceName, data.elevator, data.floor)
         exports['qb-target']:AddCircleZone(
             name,
-            vector3(coords.x, coords.y, coords.z), 1.5,
+            vector3(coords.x, coords.y, coords.z), 2.0,
             {
                 name = name,
                 debugPoly = Config.DebugZones,
@@ -20,7 +20,7 @@ return {
                         data = data,
                     }
                 },
-                distance = 2.5,
+                distance = Config.Options.Distance,
             }
         )
         return name

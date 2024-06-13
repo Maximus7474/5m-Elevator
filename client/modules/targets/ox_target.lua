@@ -4,13 +4,14 @@ return {
     AddSphereZone = function (coords, label, data, icon)
         return exports.ox_target:addSphereZone({
             coords = coords,
-            radius = 1.5,
+            radius = 2.0,
             debug = Config.DebugZones,
             options = {{
                 label = label,
                 data = data,
                 icon  = icon,
-                event = ("%s:openElevator"):format(resourceName)
+                event = ("%s:openElevator"):format(resourceName),
+                distance = Config.Options.Distance,
             }}
         })
     end,
