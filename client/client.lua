@@ -18,11 +18,13 @@ AddEventHandler(("%s:openElevator"):format(resourceName), function (data)
     NUI.ToggleNui(true)
 end)
 
-RegisterCommand('show-nui', function()
-    NUI.ToggleNui(true)
-    State.UIOpen = true
-    DebugPrint('Show NUI frame')
-end)
+if Config.Debug then
+    RegisterCommand('show-nui', function()
+        NUI.ToggleNui(true)
+        State.UIOpen = true
+        DebugPrint('Show NUI frame')
+    end)
+end
 
 RegisterNUICallback('hideFrame', function(_, cb)
     State.UIOpen = false
