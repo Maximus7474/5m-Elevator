@@ -45,8 +45,12 @@ RegisterNUICallback('setNewFloor', function(data, cb)
 
     cb(success)
 
-    SetTimeout(success and 250 or 500, function ()
+    if Config.Options.CloseUI then
+        SetTimeout(success and 250 or 500, function ()
+            isMoving = false
+            NUI.ToggleNui(false)
+        end)
+    else
         isMoving = false
-        NUI.ToggleNui(false)
-    end)
+    end
 end)
