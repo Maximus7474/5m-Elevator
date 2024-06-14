@@ -12,7 +12,13 @@ function TP.GoToNewFloor(elevator, newfloor)
     local newfloor = Config.Elevators?[elevator]?.floors?[newfloor]?.position
 
     if elevator == nil or newfloor == nil or newfloor?.xyz == nil then
-        DebugPrint("[^2TP^7] ^1Invalid Parameters^7", {elevator=elevator, newfloor=newfloor})
+        DebugPrint("[^2TP^7] ^1Invalid Parameters^7", elevator)
+        DebugPrint(
+            "^3Elevator Data:^7", Config.Elevators?[elevator] or "^1undefined^7",
+            "^3Floor list:^7", Config.Elevators?[elevator]?.floors or "^1undefined^7",
+            "^3Floor Data^7", Config.Elevators?[elevator]?.floors?[newfloor] or "^1undefined^7",
+            "^3Position^7", Config.Elevators?[elevator]?.floors?[newfloor]?.position or "^1undefined^7"
+        )
         success:resolve(false)
     elseif Config.Options.ScreenFade then
         DebugPrint("[^2TP^7] ^2Valid Parameters^7, Teleporting to", newfloor)

@@ -4,8 +4,8 @@ local resourceName = GetCurrentResourceName()
 
 for elevator, data in pairs(Config.Elevators) do
     Zones[elevator] = {}
-    for k, v in pairs(data.floors) do
-        Zones[elevator][#Zones[elevator]+1] = TARGET.AddSphereZone(v.panel, Config.Options.Label, { floor = k, elevator = elevator }, Config.Options.Icon)
+    for _, v in pairs(data.floors) do
+        Zones[elevator][#Zones[elevator]+1] = TARGET.AddSphereZone(v.panel, Config.Options.Label, { floor = v.floor, elevator = elevator }, Config.Options.Icon)
     end
 end
 

@@ -23,6 +23,7 @@
 ## Configuration:
 All configuration actions are available in the [config.lua file](https://github.com/Maximus7474/5M-Elevator/blob/1.0.1/shared/config.lua).
 To add more elevators copy the template and alter the values by respecting the structure, not respecting it will lead to errors and the resource not working properly.
+- The floors will show in the same order as listed in the config file.
 
 Specifications:
 - The `vehicle` & `restricted` fields are not yet active, more documentation will be made available when implemented.
