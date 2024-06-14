@@ -6,40 +6,45 @@ import { useNuiEvent } from "../hooks/useNuiEvent";
 import FloorView from "./elements/floor-view";
 import FloorButton from "./elements/floor-button";
 
-// This will set the NUI to visible if we are
-// developing in browser
+interface floorButtons {
+  floor:string,
+  label:string,
+  index:number,
+}
+
 debugData([
   {
     action: "setFloors",
     data: {
       currentFloor: 1,
       floorButtons: [
-        {floor: "-1", label: "Underground 1"},
-        {floor: "0", label: "Lobby"},
-        {floor: "1", label: "First Floor"},
+        {floor: "-1", label: "Underground 1", index: 1},
+        {floor: "0", label: "Lobby", index: 2},
+        {floor: "1", label: "First Floor", index: 3},
       ]
     },
   },
 ]);
+
 debugData([
   {
     action: "setVisible",
-    data: true
-  }
+    data: true,
+  },
 ]);
 
 const App: React.FC< any > = () => {
 
   const [currentFloor, setCurrentFloor] = useState<string>("0");
-  const [floorButtons, setFloorButtons] = useState<{ floor: string; label: string; }[]>([]);
+  const [floorButtons, setFloorButtons] = useState<floorButtons[]>([]);
 
-  useNuiEvent<{ currentFloor: string; floorButtons: { floor: string; label: string; }[] }>('setFloors', (data) => {
+  useNuiEvent<{ currentFloor: string; floorButtons: floorButtons[] }>('setFloors', (data) => {
     setCurrentFloor(data.currentFloor);
     setFloorButtons(data.floorButtons);
   });
 
-  const handleButtonClick = (clickedFloor: string) => {
-    fetchNui<boolean>("setNewFloor", {clickedFloor: clickedFloor})
+  const handleButtonClick = (floorIndex: number, clickedFloor: string) => {
+    fetchNui<boolean>("setNewFloor", {floorIndex: floorIndex})
       .then((retData) => {
         if (retData) setCurrentFloor(clickedFloor);
       })
@@ -53,9 +58,11 @@ const App: React.FC< any > = () => {
       <div className="elevator-panel">
         <FloorView floor={currentFloor} />
         <div className="button-grid">
-          {floorButtons.map(({ floor, label }) => (
-            <FloorButton key={floor} floor={floor} label={label} onClick={() => handleButtonClick(floor)} />
-          ))}
+          {
+            floorButtons.map(({ floor, label, index }) => (
+              <FloorButton key={floor} floor={floor} label={label} onClick={() => handleButtonClick(index, floor)} />
+            ))
+          }
         </div>
       </div>
     </div>
