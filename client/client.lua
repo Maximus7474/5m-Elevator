@@ -36,17 +36,17 @@ end)
 
 RegisterNUICallback('setNewFloor', function(data, cb)
 
-    if isMoving then return cb(false) end
+    if isMoving then DebugPrint("Player is already moving, cancelling") return cb(false) end
 
     isMoving = true
     DebugPrint('Data received from NUI', json.encode(data))
 
-    local success = Citizen.Await(TP.GoToNewFloor(currentElevator, data.clickedFloor))
+    local success = Citizen.Await(TP.GoToNewFloor(currentElevator, data.floorIndex))
 
-    isMoving = false
     cb(success)
 
-    SetTimeout(250, function ()
+    SetTimeout(success and 250 or 500, function ()
+        isMoving = false
         NUI.ToggleNui(false)
     end)
 end)
