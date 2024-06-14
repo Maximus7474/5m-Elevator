@@ -36,7 +36,7 @@ end)
 
 RegisterNUICallback('setNewFloor', function(data, cb)
 
-    if isMoving then DebugPrint("Player is already moving, cancelling") return cb(false) end
+    if isMoving then DebugPrint("Player is already moving, cancelling") return cb(nil) end
 
     isMoving = true
     DebugPrint('Data received from NUI', json.encode(data))

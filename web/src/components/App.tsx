@@ -46,7 +46,11 @@ const App: React.FC< any > = () => {
   const handleButtonClick = (floorIndex: number, clickedFloor: string) => {
     fetchNui<boolean>("setNewFloor", {floorIndex: floorIndex})
       .then((retData) => {
-        if (retData) setCurrentFloor(clickedFloor);
+        if (retData) {
+          setCurrentFloor(clickedFloor)
+        } else if (typeof clickedFloor === "boolean") {
+          setCurrentFloor("ERR")
+        };
       })
       .catch((e) => {
         setCurrentFloor("ERR");
