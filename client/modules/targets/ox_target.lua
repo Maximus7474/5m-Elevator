@@ -16,6 +16,6 @@ return {
         })
     end,
     RemoveZone = function (id)
-        exports['qb-target']:RemoveZone(id)
+        exports.ox_target:removeZone(id)
     end,
 }
