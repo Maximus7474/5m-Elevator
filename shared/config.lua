@@ -1,7 +1,7 @@
 Config = {}
 
 --[[ Set Debug Mode ]]
-Config.Debug = true
+Config.Debug = false
 Config.DebugZones = false
 
 --[[ Set to false if you do not want to be notified on updates ]]
@@ -29,6 +29,9 @@ Config.Options = {
     --[[ Set the Text UI & Key to use ]]
     TextUI = "Press [%s] to open elevator panel",
     Key = { id = 38, name = "E" },
+
+    --[[ Set to true if you don't want the UI to close automatically ]]
+    CloseUI = true,
 
     --[[ if false teleports immediatly ]]
     ScreenFade = true,
