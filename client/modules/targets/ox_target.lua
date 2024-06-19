@@ -4,7 +4,7 @@ return {
     AddSphereZone = function (coords, label, data, icon)
         return exports.ox_target:addSphereZone({
             coords = coords,
-            radius = 2.0,
+            radius = Config.Options.Distance,
             debug = Config.DebugZones,
             options = {{
                 label = label,
