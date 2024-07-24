@@ -2,7 +2,7 @@ fx_version 'cerulean'
 
 description 'Simple elevator UI'
 author 'Maximus Prime'
-version '1.1.2'
+version '1.2.0'
 repository 'https://github.com/Maximus7474/5M-Elevator'
 
 lua54 'yes'
