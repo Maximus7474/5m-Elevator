@@ -60,7 +60,7 @@ jobs:
         release_name: ${{ steps.extract_release_name.outputs.release_name }}
         body: |
           Version Bump to ${{ steps.extract_release_name.outputs.release_name }}.
-        draft: false
+        draft: true
         prerelease: false
 
     - name: Upload Release Asset
