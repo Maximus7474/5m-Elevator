@@ -22,3 +22,8 @@ function IsResourceStarting(resource)
     local state = GetResourceState(resource)
     return state == "started" or state == "starting"
 end
+
+function GetFrameworkRequirePath()
+    if IsResourceStarting('es_extended') then return 'esx' end
+    return 'standalone'
+end
