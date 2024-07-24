@@ -26,8 +26,12 @@ To add more elevators copy the template and alter the values by respecting the s
 - The floors will show in the same order as listed in the config file.
 
 Specifications:
-- The `vehicle` & `restricted` fields are not yet active, more documentation will be made available when implemented.
+- The `restricted` fields are not yet active, more documentation will be made available when implemented.
 - The index of the floors table needs to be a string and is suggested to not be longer than 3 characters long.
+
+## FAQ:
+Q: Why does my character/vehicle drop when changing floor
+A: You copy pasted the raw coords from a character position, this is 0.98 distance units above the ground. Either add ` - 0.98` after the z coordinate or subtract it from it.
 
 ## Credits:
 - [Project Error](https://github.com/project-error) for the react boilerplate [Github Repo](https://github.com/project-error/fivem-react-boilerplate-lua)
