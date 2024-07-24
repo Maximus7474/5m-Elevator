@@ -12,6 +12,9 @@
 > Preview:
 
 ![image](https://github.com/Maximus7474/5M-Elevator/assets/94017712/75fcdbda-4ba5-4935-862a-b84d222f5497)
+> Without access the panel doesn't allow the user to access the elevator
+![image](https://github.com/user-attachments/assets/74788f52-7e37-40be-a5a0-f199e2d590f4)
+> If he has access the light is then green and he can move around freely
 
 ## Requirements:
 - [ox_lib](https://github.com/overextended/ox_lib/releases)
