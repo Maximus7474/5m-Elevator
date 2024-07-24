@@ -6,9 +6,9 @@ interface FloorViewProps {
 }
 
 const FloorView: React.FC<FloorViewProps> = ({ floor }) => {
-    const paddedFloor = floor != null ? String(floor).padStart(2, '0') : '00';
+    const paddedFloor = floor === "X" || floor === "ERR" ? floor : floor != null ? String(floor).padStart(2, '0') : '00';
     return (
-        <div className="floor-indicator" style={floor === "ERR" ? { color: "red" } : {}}>
+        <div className="floor-indicator" style={floor === "ERR" || floor === "X" ? { color: "red" } : {}}>
             {paddedFloor}
         </div>
     );
