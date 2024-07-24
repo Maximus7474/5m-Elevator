@@ -5,13 +5,19 @@ local onEnter, inside, onExit
 
 local GetEntityCoords, DrawMarker, IsControlJustPressed = GetEntityCoords, DrawMarker, IsControlJustPressed
 
+local function canUseElevator(isVehicle)
+    if not isVehicle then return true end
+    if not cache.vehicle then return true end
+    return cache.vehicle and cache.seat == -1
+end
+
 if Config.Options.DrawMarker then
     onEnter = function()
         DebugPrint("txt ui", textUI, keyID)
     end
     inside = function (self)
         local coords = GetEntityCoords(cache.ped or PlayerPedId())
-        if #(self.coords - coords) < Config.Options.Distance then
+        if #(self.coords - coords) < Config.Options.Distance and canUseElevator(self.isVehicle) then
             if not lib.isTextUIOpen() and not State.UIOpen then
                 lib.showTextUI(textUI)
             end
@@ -50,12 +56,13 @@ onExit = function ()
 end
 
 return {
-    AddSphereZone = function (coords, label, data, icon)
+    AddSphereZone = function (coords, label, data, isVehicle, icon)
         return lib.zones.sphere({
             coords = coords,
             radius = Config.Options.Distance + (Config.Options.DrawMarker and 10.0 or 0.0),
             debug = Config.DebugZones,
             data = data,
+            isVehicle = isVehicle,
             onEnter = onEnter,
             inside = inside,
             onExit = onExit
