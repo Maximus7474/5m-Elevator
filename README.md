@@ -15,6 +15,9 @@
 
 ## Requirements:
 - [ox_lib](https://github.com/overextended/ox_lib/releases)
+- (optionnal) [es_extended](https://github.com/esx-framework/esx_core/releases)
+  - For using job/group restricted elevators
+  - ⚠️ Other frameworks are planned
 - (optionnal) [ox_target](https://github.com/overextended/ox_target/releases) or [qb-target](https://github.com/qbcore-framework/qb-target)
   - For target enable it in the config.
   - If you don't use any of these scripts you can add your own in `client/modules/targets`
@@ -26,7 +29,7 @@ To add more elevators copy the template and alter the values by respecting the s
 - The floors will show in the same order as listed in the config file.
 
 Specifications:
-- The `restricted` fields are not yet active, more documentation will be made available when implemented.
+- To add a restriction use the following table structure: `{ ["jobname"] = minimum_rank, ["job2name"] = minimum_rank }` with minimum_rank being an integer for esx
 - The index of the floors table needs to be a string and is suggested to not be longer than 3 characters long.
 
 ## FAQ:
