@@ -28,6 +28,7 @@ pre {
 }
 
 .floor-indicator {
+    min-width: 25%;
     text-align: center;
     font-family: 'Digital-7 Mono', sans-serif;
     color: #00ff00;
@@ -37,7 +38,7 @@ pre {
     font-size: 35px;
     margin-bottom: 20px;
     border-radius: 5px;
-    padding: 0.25em 1em;
+    padding: 0.25em 0;
     display: inline-block;
 }
 
