@@ -44,7 +44,7 @@ function TP.GoToNewFloor(elevator, newfloor)
         DoScreenFadeOut(Config.Options.FadeDuration)
         while not IsScreenFadedOut() do Citizen.Wait(10) end
 
-        if isVehicle and (cache.vehicle and cache.seat == -1) then
+        if cache.vehicle then
             TeleportVehicle(newfloor)
         elseif not cache.vehicle then
             TeleportPlayer(newfloor)
