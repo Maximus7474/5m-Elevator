@@ -33,7 +33,10 @@ To add more elevators copy the template and alter the values by respecting the s
 - The floors will show in the same order as listed in the config file.
 
 Specifications:
-- To add a restriction use the following table structure: `{ ["jobname"] = minimum_rank, ["job2name"] = minimum_rank }` with minimum_rank being an integer for esx
+- To add a restriction use the following table structure:
+  - `{ ["jobname"] = minimum_rank, ["job2name"] = minimum_rank }` with minimum_rank being an integer
+  - `{ "jobname", "job2name" }` making only the job required regardless of the rank
+  - `false` to disable all restrictions
 - The index of the floors table needs to be a string and is suggested to not be longer than 3 characters long.
 
 ## FAQ:
