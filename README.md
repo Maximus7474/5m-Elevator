@@ -19,9 +19,8 @@
 
 ## Requirements:
 - [ox_lib](https://github.com/overextended/ox_lib/releases)
-- (optionnal) [es_extended](https://github.com/esx-framework/esx_core/releases)
+- (optionnal) [es_extended](https://github.com/esx-framework/esx_core/releases) or [ox_core](https://github.com/overextended/ox_core/releases) or [qb-core](https://github.com/qbcore-framework/qb-core/releases)
   - For using job/group restricted elevators
-  - ⚠️ Other frameworks are planned
 - (optionnal) [ox_target](https://github.com/overextended/ox_target/releases) or [qb-target](https://github.com/qbcore-framework/qb-target)
   - For target enable it in the config.
   - If you don't use any of these scripts you can add your own in `client/modules/targets`
