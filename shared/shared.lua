@@ -26,5 +26,6 @@ end
 function GetFrameworkRequirePath()
     if IsResourceStarting('es_extended') then return 'esx' end
     if IsResourceStarting('ox_core') then return 'qb' end
+    if IsResourceStarting('qb-core') then return 'qb' end
     return 'standalone'
 end
