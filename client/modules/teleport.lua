@@ -25,10 +25,10 @@ end
 function TP.GoToNewFloor(elevator, newfloor)
     local success = promise.new()
     local isVehicle = Config.Elevators?[elevator].vehicle == true
-    local newfloor = Config.Elevators?[elevator]?.floors?[newfloor]?.position
+    local newfloor = Config.Elevators?[elevator]?.floors?[newfloor]
 
-    if elevator == nil or newfloor == nil or newfloor?.xyz == nil then
-        DebugPrint("[^2TP^7] ^1Invalid Parameters^7", elevator)
+    if elevator == nil or newfloor.position == nil or newfloor.position?.xyz == nil then
+        DebugPrint("[^2TP^7] ^1Invalid Parameters^7 for", elevator)
         DebugPrint(
             "^3Elevator Data:^7", Config.Elevators?[elevator] or "^1undefined^7",
             "^3Floor list:^7", Config.Elevators?[elevator]?.floors or "^1undefined^7",
@@ -45,8 +45,10 @@ function TP.GoToNewFloor(elevator, newfloor)
         while not IsScreenFadedOut() do Citizen.Wait(10) end
 
         if cache.vehicle then
+            newfloor = newfloor?.carposition or newfloor.position
             TeleportVehicle(newfloor)
         elseif not cache.vehicle then
+            newfloor = newfloor.position
             TeleportPlayer(newfloor)
         end
 
