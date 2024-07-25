@@ -9,8 +9,11 @@ function Framework:HasGroup(restrictions)
     local PlayerData = QB.Functions.GetPlayerData()
     local playerJob, playerRank = PlayerData.job.name, PlayerData.job.grade.level
 
-    for job, grade in pairs(restrictions) do
-        if job == playerJob and grade <= playerRank then
+    for key, value in pairs(restrictions) do
+        if type(key) == "string" and key == playerJob and value <= playerRank then
+            return true
+        elseif type(key) == "number" and value == playerJob then
+
             return true
         end
     end
