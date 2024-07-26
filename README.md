@@ -31,7 +31,7 @@ All configuration actions are available in the [config.lua file](https://github.
 To add more elevators copy the template and alter the values by respecting the structure, not respecting it will lead to errors and the resource not working properly.
 - The floors will show in the same order as listed in the config file.
 
-Specifications:
+## Specifications:
 - To add a restriction use the following table structure:
   - `{ ["jobname"] = minimum_rank, ["job2name"] = minimum_rank }` with minimum_rank being an integer
   - `{ "jobname", "job2name" }` making only the job required regardless of the rank
