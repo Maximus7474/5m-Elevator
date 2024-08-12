@@ -1,7 +1,7 @@
 Config = {}
 
 --[[ Set Debug Mode ]]
-Config.Debug = true
+Config.Debug = false
 Config.DebugZones = false
 
 --[[ Set to false if you do not want to be notified on updates ]]
