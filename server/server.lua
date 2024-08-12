@@ -1,3 +1,5 @@
+if not CanResourceBeUsed(true) then return end
+
 local targetScripts, _ = lib.getFilesInDirectory(("@%s/client/modules/targets/"):format(GetCurrentResourceName()), "%.lua")
 local zoneScripts, _ = lib.getFilesInDirectory(("@%s/client/modules/zones/"):format(GetCurrentResourceName()), "%.lua")
 local target
