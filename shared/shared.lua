@@ -30,9 +30,9 @@ function GetFrameworkRequirePath()
     return 'standalone'
 end
 
-function CanResourceBeUsed()
-    if not LoadResourceFile(GetCurrentResourceName(), 'web/build.index.html') then
-        lib.print.error('The resource cannot be used, the UI is not built.\n   Please download a release version or build the UI: ^4https://github.com/Maximus7474/5M-Elevator/releases^7')
+function CanResourceBeUsed(print_err)
+    if not LoadResourceFile(GetCurrentResourceName(), 'web/build/index.html') then
+        if print_err then lib.print.error('The resource cannot be used, the UI is not built.\n   Please download a release version or build the UI: ^4https://github.com/Maximus7474/5M-Elevator/releases^7') end
         return false
     end
     return true
