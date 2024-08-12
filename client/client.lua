@@ -1,3 +1,5 @@
+if not CanResourceBeUsed() then return end
+
 local NUI = require 'client.modules.nui'
 local Utils = require 'client.modules.utils'
 local TP = require 'client.modules.teleport'

@@ -1,3 +1,5 @@
+if not CanResourceBeUsed() then return end
+
 local Zones = {}
 local TARGET = require ("client.modules."..lib.callback.await("5m-Elevator:ZoneHandler", false))
 local resourceName = GetCurrentResourceName()
