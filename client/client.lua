@@ -59,8 +59,10 @@ RegisterNUICallback('setNewFloor', function(data, cb)
         SetTimeout(success and 250 or 500, function ()
             isMoving = false
             NUI.ToggleNui(false)
+            State.UIOpen = false
         end)
     else
         isMoving = false
+        State.UIOpen = false
     end
 end)
