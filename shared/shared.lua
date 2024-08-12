@@ -1,21 +1,23 @@
 function DebugPrint(...)
     if not Config.Debug then return end
-    local args = { ... }
+    local args, newArgs = { ... }, {}
 
     for k, v in ipairs(args) do
         if type(v) == "table" then
-            args[k] = json.encode(
+            newArgs[k] = json.encode(
                 v,
                 {
                     indent=4, sort_keys=true
                 }
             )
+        elseif type(v) ~= "string" then
+            newArgs[k] = json.encode(v) or 'nil'
         else
-            args[k] = tostring(v)
+            newArgs[k] = v or 'nil'
         end
     end
 
-    print("[^3DEBUG^7]", table.concat(args, '\t'))
+    print("[^3DEBUG^7]", table.concat(newArgs, '\t'))
 end
 
 function IsResourceStarting(resource)
