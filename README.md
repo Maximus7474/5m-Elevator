@@ -1,6 +1,8 @@
 # 5M-Elevator
 > By [Maximus7474](https://github.com/Maximus7474)
 
+If you like this resource please drop a star, it's always appreciated and gives motivation to continue !
+
   ![](https://img.shields.io/github/downloads/Maximus7474/5M-Elevator/total?logo=github)
   ![](https://img.shields.io/github/v/release/Maximus7474/5M-Elevator?logo=github)
 
