@@ -7,7 +7,8 @@ local resourceName = GetCurrentResourceName()
 for elevator, data in pairs(Config.Elevators) do
     Zones[elevator] = {}
     for _, v in pairs(data.floors) do
-        Zones[elevator][#Zones[elevator]+1] = TARGET.AddSphereZone(v.panel, Config.Options.Label, { floor = v.floor, elevator = elevator }, data.vehicle, Config.Options.Icon)
+        local coords = vector3(v.position.x, v.position.y, v.panel.z)
+        Zones[elevator][#Zones[elevator]+1] = TARGET.AddSphereZone(coords, Config.Options.Label, { floor = v.floor, elevator = elevator }, data.vehicle, Config.Options.Icon)
     end
 end
 
