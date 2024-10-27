@@ -1,75 +1,86 @@
-name: Create Release on 'bump version' commit
+name: Release
 
 on:
   push:
-    branches:
-      - main
+    tags:
+      - 'v*.*.*'
 
 jobs:
-  create_release:
-    name: Create Release
+  create-release:
+    name: Build and Create Tagged release
     runs-on: ubuntu-latest
-    
-    if: contains(github.event.head_commit.message, 'bump version')
 
-    strategy:
-      matrix:
-        node-version: [ 18.x ]
+    permissions:
+      contents: write
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Install archive tools
+        run: sudo apt install zip
 
-    - name: Find 'bump version' commit and extract release name
-      id: extract_release_name
-      run: |
-        RELEASE_NAME=$(git log -1 --pretty=%B | grep -oP 'bump version \K(.*)')
-        echo "::set-output name=release_name::$RELEASE_NAME"
+      - name: Checkout source code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.repository.default_branch }}
 
-    - name: Prepare release assets
-      run: |
-        mkdir release_assets
-        rsync -av --exclude='release_assets/' --exclude='.git/' --exclude='.github/' . release_assets/
-    
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-    
-    - name: Build UI
-      run: |
-        cd release_assets/web/
-        npm install
-        npm run build
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4.0.0
+        with:
+          version: 9
 
-    - name: Clean release asset
-      run: |
-        cd release_assets/web/
-        find . -mindepth 1 -not -path './build' -not -path './build/*' -delete
+      - name: Get variables
+        id: get_vars
+        run: |
+          echo '::set-output name=SHORT_SHA::$(git rev-parse --short HEAD)'
+          echo '::set-output name=DATE::$(date +'%D')'
+          echo '::set-output name=VERSION::${GITHUB_REF#refs/tags/}'  # Extracts the version from the tag
 
-    - name: Compress Asset
-      run: cd release_assets && zip -r ../5m-Elevator.zip .
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'pnpm'
+          cache-dependency-path: 'pnpm-lock.yaml'
 
-    - name: Create GitHub Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
-      with:
-        tag_name: ${{ steps.extract_release_name.outputs.release_name }}
-        release_name: ${{ steps.extract_release_name.outputs.release_name }}
-        body: |
-          Version Bump to ${{ steps.extract_release_name.outputs.release_name }}.
-        draft: true
-        prerelease: false
+      - name: Install dependencies
+        run: pnpm i --frozen-lockfile
 
-    - name: Upload Release Asset
-      id: upload_release_asset
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./5m-Elevator.zip
-        asset_name: 5m-Elevator.zip
-        asset_content_type: application/zip
+      - name: Run build in web/
+        working-directory: web
+        run: pnpm run build
+
+      - name: Update fxmanifest version
+        run: |
+          sed -i "/^version/c\\version '${{ steps.get_vars.outputs.VERSION }}'" fxmanifest.lua
+
+      - name: Commit updated fxmanifest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add fxmanifest.lua
+          git commit -m "Update fxmanifest version to ${{ steps.get_vars.outputs.VERSION }}"
+          git push
+
+      - name: Bundle files for release
+        run: |
+          zip -r ${{ github.event.repository.name }}.zip . \
+          -x "./.github/*" \
+             "./web/src/*" \
+             "./web/public/*" \
+             "./web/*.json" \
+             "./web/*.lock" \
+             "./node_modules/*" \
+             "*.ts" \
+             "*.md" \
+             "*.yaml"
+
+      - name: Create Release
+        uses: marvinpinto/action-automatic-releases@v1.2.1
+        id: auto_release
+        with:
+          repo_token: '${{ secrets.RELEASE_TOKEN }}'
+          title: '${{ steps.get_vars.outputs.VERSION }}'
+          prerelease: false
+          files: ${{ github.event.repository.name }}.zip
