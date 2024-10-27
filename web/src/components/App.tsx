@@ -11,6 +11,7 @@ interface floorButtons {
   floor:string,
   label:string,
   index:number,
+  hasAccess:boolean,
 }
 
 interface setFloorProps {
@@ -24,13 +25,13 @@ debugData([
   {
     action: "setFloors",
     data: {
-      isRestricted: true,
-      hasAccess: true,
+      isRestricted: false,
+      hasAccess: false,
       currentFloor: 1,
       floorButtons: [
-        {floor: "-1", label: "Underground 1", index: 1},
-        {floor: "0", label: "Lobby", index: 2},
-        {floor: "1", label: "First Floor", index: 3},
+        {floor: "-1", label: "Underground 1", index: 1, hasAccess: true},
+        {floor: "0", label: "Lobby", index: 2, hasAccess: false},
+        {floor: "1", label: "First Floor", index: 3, hasAccess: false},
       ]
     },
   },
@@ -59,11 +60,20 @@ const App: React.FC< any > = () => {
     }
   });
 
-  const handleButtonClick = (floorIndex: number, clickedFloor: string) => {
+  const handleButtonClick = (floorIndex: number, clickedFloor: string, hasAccess: boolean) => {
+    
+    console.log(restricted && !access, restricted, !access);
+
+    if (!hasAccess) {
+      setAccess(false);
+      return setCurrentFloor("X");
+    }
+
     if (restricted && !access) {
       return setCurrentFloor("X");
     }
-    fetchNui<boolean>("setNewFloor", {floorIndex: floorIndex})
+
+    fetchNui<boolean>("setNewFloor", {floorIndex: floorIndex}, true)
       .then((retData) => {
         if (retData) {
           setCurrentFloor(clickedFloor)
@@ -82,8 +92,8 @@ const App: React.FC< any > = () => {
         <FloorView floor={currentFloor} />
         <div className="button-grid">
           {
-            floorButtons.map(({ floor, label, index }) => (
-              <FloorButton key={floor} floor={floor} label={label} onClick={() => handleButtonClick(index, floor)} />
+            floorButtons.map(({ floor, label, index, hasAccess }) => (
+              <FloorButton key={floor} floor={floor} label={label} onClick={() => handleButtonClick(index, floor, hasAccess)} />
             ))
           }
         </div>
