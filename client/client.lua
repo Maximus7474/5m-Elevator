@@ -15,13 +15,17 @@ AddEventHandler(("%s:openElevator"):format(resourceName), function (data)
     local data = data.data
     currentElevator = data.elevator
 
-    local isRestricted = Config.Elevators?[data.elevator]?.restricted or false
+    local floors, isRestricted = Utils.FormatFloors(Config.Elevators?[data.elevator]?.floors)
+
+    if Config.Elevators?[data.elevator]?.restricted then
+        isRestricted = Framework:HasGroup(Config.Elevators[data.elevator].restricted)
+    end
 
     NUI.SendReactMessage('setFloors', {
-        isRestricted = isRestricted and true or false,
-        hasAccess = isRestricted and Framework:HasGroup(isRestricted) or nil,
+        isRestricted = isRestricted or false,
+        hasAccess = isRestricted or false,
         currentFloor = data.floor,
-        floorButtons = Utils.FormatFloors(Config.Elevators?[data.elevator]?.floors)
+        floorButtons = floors
     })
 
     State.UIOpen = true
